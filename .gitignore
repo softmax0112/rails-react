@@ -1,0 +1,67 @@
+# general
+build
+dist
+node_modules
+.DS_Store
+
+# environment
+.env
+.env.test
+.env.production
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# security
+credentials.json
+secrets.json
+
+# project
+dev/
+
+# rails - bundler config.
+/rails-api/.bundle
+
+# rails - ignore the default SQLite database.
+/rails-api/db/*.sqlite3
+/rails-api/db/*.sqlite3-*
+
+# rails - ignore all logfiles and tempfiles.
+/rails-api/log/*
+/rails-api/tmp/*
+!/rails-api/log/.keep
+!/rails-api/tmp/.keep
+
+# rails - ignore pidfiles, but keep the directory.
+/rails-api/tmp/pids/*
+!/rails-api/tmp/pids/
+!/rails-api/tmp/pids/.keep
+
+# rails - ignore uploaded files in development.
+/rails-api/storage/*
+!/rails-api/storage/.keep
+
+/rails-api/public/assets
+/rails-api/.byebug_history
+
+# rails - ignore master key for decrypting credentials
+/rails-api/config/master.key
+
+# rails - packs + js ecosystem
+/rails-api/public/packs
+/rails-api/public/packs-test
+/rails-api/node_modules
+/rails-api/yarn-error.log
+/rails-api/yarn-debug.log*
+/rails-api/.yarn-integrity
