@@ -1,0 +1,81 @@
+version: '3.9'
+
+# WIP
+
+services:
+  ui:
+    image: raru/ui
+    container_name: ui
+    build:
+      context: .
+      # cache_from:
+      #   - nginx:1.19.2
+      # target: ui
+      # args:
+      #   NODE_ENV: production
+    environment:
+    ports:
+      - 8890:3000
+    depends_on:
+      - api
+    restart: on-failure
+
+  api:
+    image: raru/api
+    container_name: api
+    build:
+      context: .
+      dockerfile: rails-api/Dockerfile
+    env_file:
+      - rails-api/.env
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      RAILS_ENV: ${RAILS_ENV:-development}
+      DB_HOSTNAME: db
+    ports:
+      - 8891:3001
+    networks:
+      - project_network
+    depends_on:
+      - db
+    command: bundle exec rails s -p 3001 -b '0.0.0.0'
+    restart: on-failure
+    # volumes:
+    #   - ./rails-api:/app/backend
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - 8899:5432
+    networks:
+      - project_network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # adminer:
+  #   container_name: adminer
+  #   image: adminer
+  #   restart: always
+  #   environment:
+  #     ADMINER_DEFAULT_DB_DRIVER: pgsql
+  #     ADMINER_DEFAULT_DB_HOST: db
+  #     ADMINER_DEFAULT_DB_NAME: postgres
+  #   ports:
+  #     - 8898:8080 # note - if behind firewall, use ssh tunnel e.g. localhost:8898
+  #   networks:
+  #     - project_network
+  #   depends_on:
+  #     - db
+
+volumes:
+  pgdata:
+
+networks:
+  project_network:
+    driver: bridge
