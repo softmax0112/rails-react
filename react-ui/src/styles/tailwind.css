@@ -1,0 +1,35 @@
+:root {
+  --color-primary: darkblue;
+  --color-secondary: lightblue;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  html {
+    @apply smooth-scroll;
+  }
+
+  /* always show scrollbar to avoid horizontal jank on load/transition on ms windows */
+  body {
+    overflow-y: scroll;
+  }
+
+  /* remove spinners from input type=number on chrome, safari, edge, opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* remove spinner from input type=number on firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}
