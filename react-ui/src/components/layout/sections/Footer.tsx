@@ -1,16 +1,16 @@
 import clsx from 'clsx'
 
-export const Footer: React.FC<{ className: string; innerClassName: string }> = ({ className, innerClassName }) => {
+export const Footer: React.FC<{ className?: string; innerClassName?: string }> = ({ className, innerClassName }) => {
   return (
-    <footer className={className}>
-      <div className={clsx(innerClassName, 'text-center')}>
+    <footer className={clsx('bg-blue-50', className)}>
+      <div className={clsx('max-w-7xl mx-auto text-center py-4', innerClassName)}>
         <a
-          href="https://firxworx.com"
+          href="https://github.com/firxworx/rails-api-react-ui"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 text-sm underline leading-none"
+          className="text-blue-600 hover:text-blue-800 text-sm underline leading-none"
         >
-          https://firxworx.com
+          https://github.com/firxworx/rails-api-react-ui
         </a>
       </div>
     </footer>

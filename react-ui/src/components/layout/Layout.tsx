@@ -1,30 +1,28 @@
+import React from 'react'
 import { ErrorBoundary } from './ErrorBoundary'
 import { Header } from './sections/Header'
-import { MainContentSection } from './sections/MainContentSection'
 import { Footer } from './sections/Footer'
-import type { NavLink } from '../NavLink'
 import { MainContent } from './sections/MainContent'
+
+import type { NavLink } from '../NavLink'
+import type { User } from '../../types/User.interface'
 
 export interface LayoutProps {
   navLinks?: Array<NavLink>
-  user?: {
-    name: string
-    email: string
-  }
+  user?: User
+  onSignOutClick?: (event: React.MouseEvent) => void
 }
 
-export const Layout: React.FC<LayoutProps> = ({ user, navLinks, children }) => {
+export const Layout: React.FC<LayoutProps> = ({ children, user, navLinks, onSignOutClick }) => {
   const innerClassName = 'container mx-auto p-4'
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <ErrorBoundary>
-        <Header className="bg-blue-50" navLinks={navLinks} />
-        <MainContent>
-          <MainContentSection className="py-8 flex-1">{children}</MainContentSection>
-        </MainContent>
-        <Footer className="bg-blue-50 shadow" innerClassName={innerClassName} />
-      </ErrorBoundary>
-    </div>
+    <ErrorBoundary>
+      <div className="flex min-h-screen w-full flex-col">
+        <Header className="bg-blue-50" user={user} navLinks={navLinks} onSignOutClick={onSignOutClick} />
+        <MainContent>{children}</MainContent>
+        <Footer />
+      </div>
+    </ErrorBoundary>
   )
 }
